@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="sparkTestApp.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/sparkTestApp_jar</output-path>
+    <root id="archive" name="sparkTestApp.jar">
+      <element id="module-output" name="sparkTestApp" />
+    </root>
+  </artifact>
+</component>
