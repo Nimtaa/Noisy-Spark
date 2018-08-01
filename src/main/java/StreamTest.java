@@ -16,7 +16,7 @@ public class StreamTest {
         JavaStreamingContext jss = new JavaStreamingContext(jsc,new Duration(1000));
 
         //create DStream
-        JavaReceiverInputDStream<String> lines = jss.socketTextStream("127.0.0.1",9998);
+        JavaReceiverInputDStream<String> lines = jss.socketTextStream("127.0.0.1",9999);
         JavaDStream<String> words = lines.flatMap(n -> Arrays.asList(n.split(" ")).iterator());
 
         JavaPairDStream<String,Integer> wordCount = words.mapToPair(s -> new Tuple2<>(s,1));

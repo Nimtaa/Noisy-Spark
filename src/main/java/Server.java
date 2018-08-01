@@ -1,20 +1,27 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 
-public class Client {
+public class Server {
 
     private Socket socket = null;
     private DataOutputStream out  = null;
     private OutputStreamWriter osw = null;
-    public Client (String address,int port){
+
+    private ServerSocket server = null;
+    public Server(int port){
 
         try {
 
-            socket = new Socket(address,port);
-            System.out.println("connected");
+            //socket = new Socket(address,port);
+            server = new ServerSocket(port);
+
+            System.out.println("waiting for client...");
+            socket = server.accept();
+
             out = new DataOutputStream(socket.getOutputStream());
             osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
 
@@ -32,7 +39,8 @@ public class Client {
 
     }
     public static void main(String[] args) {
-       Client s = new Client("127.0.0.1",9998);
+       //Server s = new Server("127.0.0.1",9999);
+        Server s = new Server(9999);
     }
 
     static int randomNumberGenerator(){
