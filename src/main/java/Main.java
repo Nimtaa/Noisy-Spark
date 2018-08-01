@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        String logFile = "/usr/local/spark/README.md"; // Should be some file on your system
+        String logFile = "/home/nima/Desktop/tempDir/tempFile"; // Should be some file on your system
         JavaSparkContext jsp = new JavaSparkContext();
 
         JavaRDD<String> lines = jsp.textFile(logFile);
