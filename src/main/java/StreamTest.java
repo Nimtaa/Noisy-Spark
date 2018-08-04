@@ -14,16 +14,15 @@ public class StreamTest {
         JavaStreamingContext jss = new JavaStreamingContext(jsc,new Duration(1000));
 
         //create DStream
-        JavaReceiverInputDStream<String> lines = jss.socketTextStream("127.0.0.1",9999);
+        JavaReceiverInputDStream<String> lines = jss.socketTextStream("127.0.0.1",9998);
         JavaDStream<String> words = lines.flatMap(n -> Arrays.asList(n.split(" ")).iterator());
         JavaPairDStream<String,Integer> wordCount = words.mapToPair(s -> new Tuple2<>(s,1));
-        wordCount.reduceByKey((i1,i2) -> i1+i2);
+        JavaPairDStream<String,Integer> wc = wordCount.reduceByKey((i1,i2) -> i1+i2);
 
         System.out.println("THIS is output:");
-        words.count().print();
+        System.out.println(words.count());
         System.out.println("word count print");
-        wordCount.print();
-
+        wc.print();
         jss.start();
         try {
             jss.awaitTermination();
