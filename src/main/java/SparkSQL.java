@@ -1,7 +1,4 @@
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SQLContext;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.*;
 
 public class SparkSQL {
 
@@ -15,8 +12,17 @@ public class SparkSQL {
         grades.printSchema();
         grades.cache();
         System.out.println(grades.count());
-        sqlContext.registerDataFrameAsTable(grades,"gradeTable");
-        sqlContext.sql("Select gradeTable._c1 from gradeTable where gradeTable._c8 >10").show();
+        //sqlContext.registerDataFrameAsTable(grades,"gradeTable");
+
+        try {
+            grades.createGlobalTempView("person");
+        } catch (AnalysisException e) {
+            e.printStackTrace();
+        }
+        //sqlContext.sql("Select gradeTable._c1 from gradeTable where gradeTable._c8 >10").show();
+        sqlContext.sql("select * from global_temp.person").show();
+
+
 
     }
 }
