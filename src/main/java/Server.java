@@ -20,7 +20,7 @@ public class Server {
             dos = new DataOutputStream(socket.getOutputStream());
             while(true) {
                 //dos.writeBytes(randomStringGenerator()+" ");
-                dos.writeBytes(randomCity()+","+randomNumberGenerator());
+                dos.writeBytes(randomCity()+","+ randomNumberGenerator()+"\n");
                 server.setSoTimeout(100);
             }
 
