@@ -35,9 +35,9 @@ public class StructuredStream {
        Dataset<Row> result = europeTemp.withColumn("city",split(col("value"),",").getItem(0))
                .withColumn("temperature",split(col("value"),",").getItem(1));
        result.drop(col("value"));
+       Dataset<Row> finall = result.drop(col("value"));
 
-
-        StreamingQuery query = result.writeStream()
+        StreamingQuery query = finall.writeStream()
                 .outputMode("update")
                 .format("console")
                 .start();
