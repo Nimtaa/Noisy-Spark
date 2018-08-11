@@ -1,12 +1,13 @@
+import io.fabric8.kubernetes.api.model.extensions.DaemonSet;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.StructType;
-import static org.apache.spark.sql.functions.col;
-import static org.apache.spark.sql.functions.split;
 
 import java.util.Arrays;
+
+import static org.apache.spark.sql.functions.*;
 
 
 public class StructuredStream {
@@ -32,15 +33,37 @@ public class StructuredStream {
 
 
 
-       Dataset<Row> result = europeTemp.withColumn("city",split(col("value"),",").getItem(0))
+        Dataset<Row> splitted = europeTemp.withColumn("city",split(col("value"),",").getItem(0))
                .withColumn("temperature",split(col("value"),",").getItem(1));
-       result.drop(col("value"));
-       Dataset<Row> finall = result.drop(col("value"));
 
-        StreamingQuery query = finall.writeStream()
-                .outputMode("update")
-                .format("console")
-                .start();
+
+        Dataset<Row> counting = splitted.groupBy("city").count();
+        Dataset<Row> withoutValue  = splitted.drop(col("value"));
+
+
+        Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
+
+
+
+        StreamingQuery query = queryResult.writeStream()
+              .outputMode("append")
+              .format("console")
+              .start();
+
+        StreamingQuery q = counting.writeStream()   
+              .outputMode("complete")
+              .format("console")
+              .start();
+
+
+
+        try {
+            q.awaitTermination();
+        } catch (StreamingQueryException e) {
+            e.printStackTrace();
+        }
+
+
         try {
             query.awaitTermination();
         } catch (StreamingQueryException e) {
