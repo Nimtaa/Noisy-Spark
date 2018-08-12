@@ -43,7 +43,7 @@ public class ConnectionHandler implements Runnable{
             //server.setSoTimeout(100);
             try {
 
-                socket.setSoTimeout(500);
+                socket.setSoTimeout(1000);
             } catch (SocketException e) {
                 e.printStackTrace();
             }
