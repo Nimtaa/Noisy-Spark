@@ -42,10 +42,10 @@ public class StructuredStream {
 
         Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
 
-        StreamingQuery query = queryResult.writeStream()
-              .outputMode("append")
-              .format("console")
-              .start();
+//        StreamingQuery query = queryResult.writeStream()
+//              .outputMode("append")
+//              .format("console")
+//              .start();
 
         StreamingQuery q = counting.writeStream()
               .outputMode("complete")
@@ -57,12 +57,12 @@ public class StructuredStream {
             e.printStackTrace();
         }
 
-
-        try {
-            query.awaitTermination();
-        } catch (StreamingQueryException e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            query.awaitTermination();
+//        } catch (StreamingQueryException e) {
+//            e.printStackTrace();
+//        }
 
 //        Dataset<String> words = lines.as(Encoders.STRING())
 //                .flatMap((FlatMapFunction<String, String>) x -> Arrays.asList(x.split(" ")).iterator(), Encoders.STRING());

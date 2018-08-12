@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 public class ConnectionHandler implements Runnable{
@@ -17,7 +17,7 @@ public class ConnectionHandler implements Runnable{
     public void run() {
         counter++;
         try {
-            PrintWriter pw = new PrintWriter(new File("/home/nima/Desktop/tempDir/outfile"+counter+".csv"));
+            PrintWriter pw = new PrintWriter(new File("/home/nima/Desktop/tempDir/outfile" + counter + ".csv"));
             StringBuilder sb = new StringBuilder();
             sb.append("city");
             sb.append(',');
@@ -26,32 +26,36 @@ public class ConnectionHandler implements Runnable{
             pw.write(sb.toString());
 
 
-
-        try {
-            dos = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        while(true) {
+            try {
+                dos = new DataOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            while (true) {
 //            try {
                 //dos.writeBytes(randomCity()+","+ randomNumberGenerator()+"\n");
-                pw.write(randomCity()+","+ randomNumberGenerator()+"\n");
-
+                pw.write(randomCity() + "," + randomNumberGenerator() + "\n");
+                pw.flush();
+                Thread.sleep(200);
 //            } catch (IOException e1) {
 //                e1.printStackTrace();
 //            }
-            //server.setSoTimeout(100);
-            try {
+                    //server.setSoTimeout(100);
+//            try {
+//
+//                socket.setSoTimeout(1000);
+//            } catch (SocketException e) {
+//                e.printStackTrace();
+//            }
 
-                socket.setSoTimeout(1000);
-            } catch (SocketException e) {
-                e.printStackTrace();
+
             }
-        }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
     }
 
     static int randomNumberGenerator(){
