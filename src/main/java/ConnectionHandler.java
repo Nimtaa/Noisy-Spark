@@ -1,31 +1,45 @@
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Random;
+
 
 public class ConnectionHandler implements Runnable{
 
     private DataOutputStream dos = null;
     private Socket socket;
-
+    static  int counter ;
     public  ConnectionHandler(Socket socket){
         this.socket = socket;
 
     }
     @Override
     public void run() {
+        counter++;
+        try {
+            PrintWriter pw = new PrintWriter(new File("/home/nima/Desktop/tempDir/outfile"+counter+".csv"));
+            StringBuilder sb = new StringBuilder();
+            sb.append("city");
+            sb.append(',');
+            sb.append("temperature");
+            sb.append('\n');
+            pw.write(sb.toString());
+
+
+
         try {
             dos = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
         while(true) {
-            try {
-                dos.writeBytes(randomCity()+","+ randomNumberGenerator()+"\n");
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+//            try {
+                //dos.writeBytes(randomCity()+","+ randomNumberGenerator()+"\n");
+                pw.write(randomCity()+","+ randomNumberGenerator()+"\n");
+
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
             //server.setSoTimeout(100);
             try {
 
@@ -33,6 +47,9 @@ public class ConnectionHandler implements Runnable{
             } catch (SocketException e) {
                 e.printStackTrace();
             }
+        }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }

@@ -1,4 +1,3 @@
-import io.fabric8.kubernetes.api.model.extensions.DaemonSet;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
@@ -43,20 +42,15 @@ public class StructuredStream {
 
         Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
 
-
-
         StreamingQuery query = queryResult.writeStream()
               .outputMode("append")
               .format("console")
               .start();
 
-        StreamingQuery q = counting.writeStream()   
+        StreamingQuery q = counting.writeStream()
               .outputMode("complete")
               .format("console")
               .start();
-
-
-
         try {
             q.awaitTermination();
         } catch (StreamingQueryException e) {
