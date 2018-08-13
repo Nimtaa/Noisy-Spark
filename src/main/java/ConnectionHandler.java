@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.Socket;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 public class ConnectionHandler implements Runnable{
@@ -36,7 +35,7 @@ public class ConnectionHandler implements Runnable{
                 //dos.writeBytes(randomCity()+","+ randomNumberGenerator()+"\n");
                 pw.write(randomCity() + "," + randomNumberGenerator() + "\n");
                 pw.flush();
-                Thread.sleep(200);
+                Thread.sleep(50);
 //            } catch (IOException e1) {
 //                e1.printStackTrace();
 //            }

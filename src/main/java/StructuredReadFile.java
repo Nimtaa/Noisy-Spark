@@ -1,4 +1,5 @@
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQuery;
@@ -8,8 +9,6 @@ import org.apache.spark.sql.types.StructType;
 public class StructuredReadFile {
 
     public static void main(String[] args) {
-
-
         SparkSession spark = SparkSession
                 .builder()
                 .appName("StructuredStreamReadFile")
@@ -21,11 +20,12 @@ public class StructuredReadFile {
                 .schema(schema)
                 .csv("/home/nima/Desktop/tempDir");
 
-        Dataset<Row> queryResult = csvRead.select("*").where("temperature>35");
-        Dataset<Row> countingresult = queryResult.groupBy("city").count();
+        Dataset<Row> queryResult = csvRead.select("city").where("temperature > 35");
 
-        StreamingQuery q = countingresult.writeStream()
-                .outputMode("complete")
+        Dataset<Integer> counting = queryResult.map(x->1,Encoders.INT());
+
+        StreamingQuery q = counting.writeStream()
+                .outputMode("append")
                 .format("csv")
                 .option("path","/home/nima/Desktop/temp")
                 .option("checkpointLocation","/home/nima/Desktop/temp")
@@ -38,7 +38,7 @@ public class StructuredReadFile {
 //                .option("checkpointLocation","/home/nima/Desktop/temp")
 //                .start();
 
-        System.out.println("Active : "+spark.streams().active());
+        //System.out.println("Active : "+spark.streams().active());
 
 //        try {
 //            query.awaitTermination();
