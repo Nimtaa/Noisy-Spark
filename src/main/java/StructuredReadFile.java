@@ -24,32 +24,32 @@ public class StructuredReadFile {
 
         Dataset<Integer> counting = queryResult.map(x->1,Encoders.INT());
 
-        StreamingQuery q = counting.writeStream()
-                .outputMode("append")
-                .format("csv")
-                .option("path","/home/nima/Desktop/temp")
-                .option("checkpointLocation","/home/nima/Desktop/temp")
-                .start();
-
-//        StreamingQuery query = queryResult.writeStream()
+//        StreamingQuery q = counting.writeStream()
 //                .outputMode("append")
 //                .format("csv")
 //                .option("path","/home/nima/Desktop/temp")
 //                .option("checkpointLocation","/home/nima/Desktop/temp")
 //                .start();
 
+        StreamingQuery query = queryResult.writeStream()
+                .outputMode("append")
+                .format("csv")
+                .option("path","/home/nima/Desktop/temp")
+                .option("checkpointLocation","/home/nima/Desktop/temp")
+                .start();
+
         //System.out.println("Active : "+spark.streams().active());
 
-//        try {
-//            query.awaitTermination();
-//        } catch (StreamingQueryException e) {
-//            e.printStackTrace();
-//        }
         try {
-            q.awaitTermination();
+            query.awaitTermination();
         } catch (StreamingQueryException e) {
             e.printStackTrace();
         }
+//        try {
+//            q.awaitTermination();
+//        } catch (StreamingQueryException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

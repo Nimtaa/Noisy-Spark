@@ -1,5 +1,7 @@
 import java.io.*;
 import java.net.Socket;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -32,13 +34,11 @@ public class ConnectionHandler implements Runnable{
             }
             while (true) {
 //            try {
-                //dos.writeBytes(randomCity()+","+ randomNumberGenerator()+"\n");
-                pw.write(randomCity() + "," + randomNumberGenerator() + "\n");
-                pw.flush();
-                Thread.sleep(50);
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//            }
+                dos.writeBytes(currentTimestamp()+","+randomCity()+","+ randomNumberGenerator() +"\n");
+//                pw.write(randomCity() + "," + randomNumberGenerator() + "\n");
+//                pw.flush();
+//                Thread.sleep(50);
+            }
                     //server.setSoTimeout(100);
 //            try {
 //
@@ -48,13 +48,14 @@ public class ConnectionHandler implements Runnable{
 //            }
 
 
-            }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            }  catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
     static int randomNumberGenerator(){
@@ -89,5 +90,9 @@ public class ConnectionHandler implements Runnable{
 
     }
 
+    static Timestamp currentTimestamp(){
+        Date date = new Date();
+        return new Timestamp(date.getTime());
+    }
 
 }

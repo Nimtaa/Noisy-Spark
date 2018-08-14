@@ -3,6 +3,7 @@ import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.StructType;
+import org.apache.spark.sql.types.TimestampType;
 
 import java.util.Arrays;
 
@@ -30,39 +31,51 @@ public class StructuredStream {
                 .as(Encoders.STRING())
                 .flatMap((FlatMapFunction<String,String>) x -> Arrays.asList(x.split("\n")).iterator(), Encoders.STRING());
 
+        Dataset<Row> splitted = europeTemp
+                .withColumn("timestamp",split(col("value"),",").getItem(0))
+                .withColumn("city",split(col("value"),",").getItem(1))
+                .withColumn("temperature",split(col("value"),",").getItem(2));
 
 
-        Dataset<Row> splitted = europeTemp.withColumn("city",split(col("value"),",").getItem(0))
-               .withColumn("temperature",split(col("value"),",").getItem(1));
+        Dataset<Row> tostampsplitted = splitted.select
+                (unix_timestamp(splitted.col("timestamp")).cast(TimestampType).as("timestamp"),"city","temperature");
 
 
-        Dataset<Row> counting = splitted.groupBy("city").count();
-        Dataset<Row> withoutValue  = splitted.drop(col("value"));
+        Dataset<Row> counting = splitted.groupBy("timestamp").count();
+        Dataset<Row> withoutValue = splitted.drop(col("value"));
 
+        Dataset<Row> windowedCounts = splitted
+                .withWatermark("timestamp", "1 minutes")
+                .groupBy(
+                        functions.window(splitted.col("timestamp"), "1 minutes", "1 minutes"),
+                        splitted.col("timestamp"))
+                .count();
 
         Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
 
-//        StreamingQuery query = queryResult.writeStream()
-//              .outputMode("append")
+        StreamingQuery query = withoutValue.writeStream()
+                .outputMode("append")
+                .format("csv")
+                .option("path","/home/nima/Desktop/temp")
+                .option("checkpointLocation","/home/nima/Desktop/temp")
+                .start();
+
+//        StreamingQuery q = counting.writeStream()
+//              .outputMode("complete")
 //              .format("console")
 //              .start();
-
-        StreamingQuery q = counting.writeStream()
-              .outputMode("complete")
-              .format("console")
-              .start();
-        try {
-            q.awaitTermination();
-        } catch (StreamingQueryException e) {
-            e.printStackTrace();
-        }
-
-//
 //        try {
-//            query.awaitTermination();
+//            q.awaitTermination();
 //        } catch (StreamingQueryException e) {
 //            e.printStackTrace();
 //        }
+
+
+        try {
+            query.awaitTermination();
+        } catch (StreamingQueryException e) {
+            e.printStackTrace();
+        }
 
 //        Dataset<String> words = lines.as(Encoders.STRING())
 //                .flatMap((FlatMapFunction<String, String>) x -> Arrays.asList(x.split(" ")).iterator(), Encoders.STRING());
