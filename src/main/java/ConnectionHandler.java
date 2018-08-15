@@ -95,4 +95,7 @@ public class ConnectionHandler implements Runnable{
         return new Timestamp(date.getTime());
     }
 
+    public static void main(String[] args) {
+        System.out.println(currentTimestamp());
+    }
 }

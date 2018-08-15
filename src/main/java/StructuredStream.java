@@ -3,7 +3,6 @@ import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.StructType;
-import org.apache.spark.sql.types.TimestampType;
 import java.util.Arrays;
 
 import static org.apache.spark.sql.functions.*;
@@ -40,7 +39,6 @@ public class StructuredStream {
                                 .cast("Timestamp"))
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
-
 //        Dataset<Row> timestampsplitted = splitted.select
 //                (unix_timestamp(splitted.col("timestamp")).cast(TimestampType).as("timestamp"),"city","temperature");
 
@@ -55,8 +53,7 @@ public class StructuredStream {
 //                        withoutValue.col("timestamp"))
 //                .count();
         Dataset<Row> result = withoutValue.withWatermark("timestamp","1 minutes")
-                .groupBy(functions.window(withoutValue.col("timestamp"),"1 minutes"))
-                .count();
+                .groupBy("timestamp").count();
 
         //Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
 
