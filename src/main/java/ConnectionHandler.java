@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.Socket;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -90,12 +91,15 @@ public class ConnectionHandler implements Runnable{
 
     }
 
-    static Timestamp currentTimestamp(){
-        Date date = new Date();
-        return new Timestamp(date.getTime());
+    static String currentTimestamp(){
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat s =  new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return s.format(ts.getTime());
+
     }
 
     public static void main(String[] args) {
+
         System.out.println(currentTimestamp());
     }
 }
