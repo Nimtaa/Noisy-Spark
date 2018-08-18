@@ -14,14 +14,15 @@ public class RateCalc {
         Dataset<Row> files = sparkSession.read().csv(dirPath);
         files.printSchema();
 
+        Dataset<Row> f = sparkSession.readStream().csv("/home/nima/test/*.csv");
+
+
         Dataset<Row> timecreated  = files.withColumn("time_stamp",((files.col("_c0")).cast("timestamp")));
         Dataset<Row> outsecond = timecreated.withColumn("milisecond",
                 functions.unix_timestamp(timecreated.col("time_stamp")));
         //outsecond.show();
 
         outsecond.coalesce(1).write().csv(outPath);
-
-
         try {
             files.createGlobalTempView("times");
             sqlContext.sql("select avg(_c1) from global_temp.times").show();

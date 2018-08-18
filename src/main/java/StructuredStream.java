@@ -52,14 +52,14 @@ public class StructuredStream {
 //                        functions.window(withoutValue.col("timestamp"), "1 minutes", "30 seconds"),
 //                        withoutValue.col("timestamp"))
 //                .count();
-        Dataset<Row> result = withoutValue.withWatermark("timestamp","1 seconds")
-                .groupBy(functions.window(col("timestamp"),"1 minutes","30 seconds"),
-                        col("timestamp")).count();
+//        Dataset<Row> result = withoutValue.withWatermark("timestamp","1 seconds")
+//                .groupBy(functions.window(col("timestamp"),"1 minutes","30 seconds"),
+//                        col("timestamp")).count();
 
 
 
         //Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
-        StreamingQuery query = result.writeStream()
+        StreamingQuery query = withoutValue.writeStream()
                 .outputMode("append")
                 .format("csv")
                 .option("path","/home/nima/Desktop/temp")
