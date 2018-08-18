@@ -3,6 +3,7 @@ import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.StructType;
+
 import java.util.Arrays;
 
 import static org.apache.spark.sql.functions.*;
@@ -42,7 +43,6 @@ public class StructuredStream {
 //        Dataset<Row> timestampsplitted = splitted.select
 //                (unix_timestamp(splitted.col("timestamp")).cast(TimestampType).as("timestamp"),"city","temperature");
 
-
         Dataset<Row> counting = splitted.groupBy("timestamp").count();
         Dataset<Row> withoutValue = splitted.drop(col("value"));
 //
@@ -52,17 +52,21 @@ public class StructuredStream {
 //                        functions.window(withoutValue.col("timestamp"), "1 minutes", "30 seconds"),
 //                        withoutValue.col("timestamp"))
 //                .count();
-        Dataset<Row> result = withoutValue.withWatermark("timestamp","30 seconds")
-                .groupBy("timestamp").count();
+        Dataset<Row> result = withoutValue.withWatermark("timestamp","1 seconds")
+                .groupBy(functions.window(col("timestamp"),"1 minutes","30 seconds"),
+                        col("timestamp")).count();
+
+
 
         //Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
-
         StreamingQuery query = result.writeStream()
                 .outputMode("append")
                 .format("csv")
                 .option("path","/home/nima/Desktop/temp")
                 .option("checkpointLocation","/home/nima/Desktop/temp")
                 .start();
+
+
 
 //        StreamingQuery q = counting.writeStream()
 //              .outputMode("complete")

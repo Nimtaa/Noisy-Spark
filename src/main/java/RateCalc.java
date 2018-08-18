@@ -1,5 +1,4 @@
 import org.apache.spark.sql.*;
-import org.apache.spark.sql.types.TimestampType;
 
 
 public class RateCalc {

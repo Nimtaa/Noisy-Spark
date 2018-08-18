@@ -35,7 +35,7 @@ public class ConnectionHandler implements Runnable{
             }
             while (true) {
 //            try {
-                dos.writeBytes(currentTimestamp()+","+randomCity()+","+ randomNumberGenerator() +"\n");
+                    dos.writeBytes(currentTimestamp()+","+randomCity()+","+ randomNumberGenerator() +"\n");
 //                pw.write(randomCity() + "," + randomNumberGenerator() + "\n");
 //                pw.flush();
 //                Thread.sleep(50);
