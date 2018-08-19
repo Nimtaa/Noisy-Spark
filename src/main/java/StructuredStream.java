@@ -47,7 +47,9 @@ public class StructuredStream {
 
         Dataset<Row> counting = splitted.groupBy("timestamp").count();
         Dataset<Row> withoutValue = splitted.drop(col("value"));
-//
+
+        Dataset<Row> groupByT = withoutValue.groupBy("timestamp").count();
+
         Dataset<Row> windowedCounts = withoutValue
                 .withWatermark("timestamp", "5 seconds")
                 .groupBy(
@@ -68,8 +70,8 @@ public class StructuredStream {
 //                .option("checkpointLocation","/home/nima/Desktop/temp")
 //                .start();
 
-        StreamingQuery query = windowedCounts.writeStream()
-                .outputMode("append")
+        StreamingQuery query = groupByT.writeStream()
+                .outputMode("update")
                 .format("console")
                 .start();
 
