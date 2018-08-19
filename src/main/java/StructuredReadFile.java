@@ -18,7 +18,7 @@ public class StructuredReadFile {
         Dataset<Row> csvRead = spark.readStream()
                 .option("sep",",")
                 .schema(schema)
-                .csv("/home/nima/test");
+                .csv("/home/nima/Desktop/temp");
 
         Dataset<Row> queryResult = csvRead.select("city").where("temperature > 35");
 

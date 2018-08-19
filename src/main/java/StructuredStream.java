@@ -16,6 +16,8 @@ public class StructuredStream {
                 .builder()
                 .appName("JavaStructuredNetworkWordCount")
                 .getOrCreate();
+        spark.sparkContext().setLogLevel("ERROR");
+
         StructType userSchema = new StructType().add("city","string").add("temperature","integer");
         Dataset<Row> lines = spark.readStream().format("socket")
                 .option("host","127.0.0.1")
@@ -46,12 +48,12 @@ public class StructuredStream {
         Dataset<Row> counting = splitted.groupBy("timestamp").count();
         Dataset<Row> withoutValue = splitted.drop(col("value"));
 //
-//        Dataset<Row> windowedCounts = withoutValue
-//                .withWatermark("timestamp", "1 minutes")
-//                .groupBy(
-//                        functions.window(withoutValue.col("timestamp"), "1 minutes", "30 seconds"),
-//                        withoutValue.col("timestamp"))
-//                .count();
+        Dataset<Row> windowedCounts = withoutValue
+                .withWatermark("timestamp", "5 seconds")
+                .groupBy(
+                        functions.window(col("timestamp"), "1 minutes", "30 seconds"),
+                        col("timestamp"))
+                .count();
 //        Dataset<Row> result = withoutValue.withWatermark("timestamp","1 seconds")
 //                .groupBy(functions.window(col("timestamp"),"1 minutes","30 seconds"),
 //                        col("timestamp")).count();
@@ -59,13 +61,17 @@ public class StructuredStream {
 
 
         //Dataset<Row> queryResult = withoutValue.select("*").where("temperature > 35");
-        StreamingQuery query = withoutValue.writeStream()
-                .outputMode("append")
-                .format("csv")
-                .option("path","/home/nima/Desktop/temp")
-                .option("checkpointLocation","/home/nima/Desktop/temp")
-                .start();
+//        StreamingQuery query = windowedCounts.writeStream()
+//                .outputMode("append")
+//                .format("csv")
+//                .option("path","/home/nima/Desktop/temp")
+//                .option("checkpointLocation","/home/nima/Desktop/temp")
+//                .start();
 
+        StreamingQuery query = windowedCounts.writeStream()
+                .outputMode("append")
+                .format("console")
+                .start();
 
 
 //        StreamingQuery q = counting.writeStream()
