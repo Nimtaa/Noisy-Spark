@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a3b5904-44b6-4ace-9e6b-45a99f4382fb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/ParquetRead.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ParquetRead.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ParquetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ParquetTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -86,8 +87,8 @@
       <file leaf-file-name="StructuredStream.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/StructuredStream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="57" column="25" lean-forward="true" selection-start-line="53" selection-start-column="17" selection-end-line="57" selection-end-column="25" />
+            <state relative-caret-position="-60">
+              <caret line="53" column="32" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -98,8 +99,8 @@
       <file leaf-file-name="ParquetTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ParquetTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="33" column="76" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="76" />
+            <state relative-caret-position="292">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,8 +111,8 @@
       <file leaf-file-name="ParquetRead.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ParquetRead.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="289">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -425,16 +426,15 @@
       <workItem from="1534519876089" duration="26000" />
       <workItem from="1534571222294" duration="23675000" />
       <workItem from="1534619658323" duration="1979000" />
-      <workItem from="1534658018045" duration="16999000" />
+      <workItem from="1534658018045" duration="20986000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="291493000" />
+    <option name="totallyTimeSpent" value="295480000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="25" width="1315" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -447,11 +447,11 @@
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.328594" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22116904" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21958926" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16577947" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15741445" />
       <window_info anchor="right" id="Bean Validation" order="8" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -802,28 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ConnectionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="96" column="34" lean-forward="true" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#randomStringGenerator#0;class#ConnectionHandler#0" />
-            <element signature="method#randomCity#0;class#ConnectionHandler#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/StructuredStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="57" column="25" lean-forward="true" selection-start-line="53" selection-start-column="17" selection-end-line="57" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4">
@@ -836,10 +814,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/StructuredStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="53" column="32" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ConnectionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="96" column="34" lean-forward="true" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#randomStringGenerator#0;class#ConnectionHandler#0" />
+            <element signature="method#randomCity#0;class#ConnectionHandler#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ParquetRead.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="289">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -848,8 +848,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ParquetTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="33" column="76" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="76" />
+        <state relative-caret-position="292">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

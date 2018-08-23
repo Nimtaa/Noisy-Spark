@@ -28,7 +28,6 @@ public class ParquetTest {
         data.as(Encoders.STRING())
         .flatMap((FlatMapFunction<String,String>) x -> Arrays.asList(x.split("\n")).iterator(), Encoders.STRING());
 
-
         Dataset<Row> splitted = data
                 .withColumn("timestamp",
                         split(col("value"),",").getItem(0).cast("Timestamp"))
@@ -37,13 +36,11 @@ public class ParquetTest {
 
         Dataset<Row> withoutValue = splitted.drop(col("value"));
        // Dataset<Row> counting = withoutValue.groupBy("timestamp").count();
-
         StreamingQuery query =  withoutValue.writeStream()
                 .format("parquet")
                 .option("checkpointLocation","/home/nima/Desktop/tempDir/parquet")
                 .option("path","/home/nima/Desktop/tempDir/parquet")
                 .start();
-
         try {
             query.awaitTermination();
         } catch (StreamingQueryException e) {

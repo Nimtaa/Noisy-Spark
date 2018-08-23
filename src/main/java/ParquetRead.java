@@ -5,9 +5,7 @@ import org.apache.spark.sql.functions;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.StructType;
-
 import static org.apache.spark.sql.functions.col;
-import static org.apache.spark.sql.functions.window;
 
 
 public class ParquetRead {
