@@ -20,6 +20,7 @@ public class ParquetRead {
                 .appName("parquetread")
                 .getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
+
         Dataset<Row> ps  = spark
                 .readStream()
                 .schema(userSchema)
