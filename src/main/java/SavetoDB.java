@@ -6,10 +6,6 @@ import org.apache.spark.sql.SparkSession;
 
 import java.sql.*;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
-
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
 
@@ -40,19 +36,31 @@ public class SavetoDB {
                                 .cast("Timestamp"))
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
-
-
+        conn = getConnection();
+        try {
+            conn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            pstmt = conn.prepareStatement("insert into citytemp(date, city ,temperature) values (?, ?, ?)");
+            pstmt.setString(1, splitted.col("timestamp").toString());
+            pstmt.setString(2, splitted.col("city").toString());
+            pstmt.setInt(3, Integer.parseInt(splitted.col("temperature").toString()));
+            pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         }
 
     public static Connection getConnection()  {
         String driver = "org.gjt.mm.mysql.Driver";
-        String url = "jdbc:mysql://localhost/databaseName";
+        String url = "jdbc:mysql://phpmyadmin/testdb";
         String username = "root";
-        String password = "root";
-            
-
+        String password = "Nima9112543378";
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -66,5 +74,4 @@ public class SavetoDB {
         }
         return conn;
     }
-
 }
