@@ -1,14 +1,12 @@
-import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import java.sql.*;
-import java.text.DateFormat;
 import java.util.Arrays;
 import static org.apache.spark.sql.functions.col;
-import static org.apache.spark.sql.functions.soundex;
 import static org.apache.spark.sql.functions.split;
 
 
@@ -38,9 +36,17 @@ public class SavetoDB {
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
 
+        
+       System.out.println("City column :" + col("city"));
+
+//
+//        StreamingQuery query = splitted.writeStream()
+//                .outputMode("update")
+//                .format("console")
+//                .start();
+
         //Direct Way using write from spark
-//        splitted.write().format("jdbc")
-//                .option("")
+
 
         //Indirect way using database connection and preparestatement
         conn = getConnection();
@@ -51,19 +57,16 @@ public class SavetoDB {
         }
         try {
             pstmt = conn.prepareStatement("insert into citytemp(date, city ,temperature) values (?, ?, ?);");
-            pstmt.setTimestamp(1, Timestamp.valueOf( splitted.col("timestamp").toString()));
-            pstmt.setString(2, splitted.col("city").toString());
+            pstmt.setTimestamp(1, Timestamp.valueOf( col("timestamp").toString()));
+            pstmt.setString(2, col("city").toString());
             pstmt.setInt(3, 24);
-//            pstmt = conn.prepareStatement("insert  into citytemp values (?,?,?);");
-//            pstmt.setString(1,null);
-//            pstmt.setString(2,"sari");
-//            pstmt.setInt(3,12);
             pstmt.executeUpdate();
             conn.commit();
             System.out.println("query executed");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
     public static Connection getConnection()  {
         String driver = "com.mysql.cj.jdbc.Driver";
