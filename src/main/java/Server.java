@@ -2,6 +2,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Timestamp;
 
 public class Server {
 
@@ -42,6 +43,7 @@ public class Server {
 
     }
     public static void main(String[] args) {
+        System.out.println(Timestamp.valueOf("2018-08-27 12:14:18"));
         Server s = new Server(9998);
     }
 
