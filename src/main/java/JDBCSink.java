@@ -1,6 +1,5 @@
 import org.apache.spark.sql.ForeachWriter;
 import org.apache.spark.sql.Row;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,11 +44,11 @@ public class JDBCSink extends ForeachWriter<Row> {
     @Override
     public void process(Row row) {
         try {
-            pstmt = conn.prepareStatement("select into citytemp values (?,?,?)");
+            pstmt = conn.prepareStatement("insert into citytemp values (?,?,?)");
             //pstmt.setTimestamp(1, Timestamp.valueOf( col("timestamp").toString()));
-            pstmt.setString(1,row.get(0).toString());
-            pstmt.setString(2, row.get(1).toString());
-            pstmt.setInt(3, 24);
+            pstmt.setString(1,row.get(0).toString().split(",")[0]);
+            pstmt.setString(2, row.get(0).toString().split(",")[1]);
+            pstmt.setInt(3, Integer.parseInt(row.get(0).toString().split(",")[2]));
             pstmt.executeUpdate();
             System.out.println("query executed");
         } catch (SQLException e) {

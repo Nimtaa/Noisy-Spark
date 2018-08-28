@@ -1,6 +1,8 @@
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
+import org.apache.spark.sql.streaming.StreamingQueryException;
+
 import java.util.Arrays;
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
@@ -26,6 +28,13 @@ public class SavetoDB  {
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
 
-        splitted.writeStream().foreach(new JDBCSink()).start();
+
+        StreamingQuery query = splitted.writeStream().foreach(new JDBCSink())
+                .start();
+        try {
+            query.awaitTermination();
+        } catch (StreamingQueryException e) {
+            e.printStackTrace();
+        }
     }
 }
