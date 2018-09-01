@@ -1,15 +1,11 @@
 import org.apache.spark.sql.ForeachWriter;
 import org.apache.spark.sql.Row;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 public class JDBCSink extends ForeachWriter<Row> {
-
     PreparedStatement pstmt = null ;
     Connection conn = null ;
-
     public static Connection getConnection()  {
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost/testdb";
@@ -44,13 +40,14 @@ public class JDBCSink extends ForeachWriter<Row> {
     @Override
     public void process(Row row) {
         try {
-            pstmt = conn.prepareStatement("insert into citytemp values (?,?,?)");
+            pstmt = conn.prepareStatement("insert into citytemp (date,city,temperature) values (?,?,?)" +
+                    " ON DUPLICATE KEY UPDATE temperature=VALUES(temperature), date =VALUES(date) ;");
             //pstmt.setTimestamp(1, Timestamp.valueOf( col("timestamp").toString()));
+            //because we have value column this gest other data from value column
             pstmt.setString(1,row.get(0).toString().split(",")[0]);
             pstmt.setString(2, row.get(0).toString().split(",")[1]);
             pstmt.setInt(3, Integer.parseInt(row.get(0).toString().split(",")[2]));
             pstmt.executeUpdate();
-            System.out.println("query executed");
         } catch (SQLException e) {
             e.printStackTrace();
         }

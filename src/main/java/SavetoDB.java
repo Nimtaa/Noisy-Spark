@@ -2,14 +2,11 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
-
 import java.util.Arrays;
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
 
 public class SavetoDB  {
-
-
     public static void main(String[] args)  {
         SparkSession spark = SparkSession.builder().appName("savetodb").getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
@@ -27,10 +24,11 @@ public class SavetoDB  {
                                 .cast("Timestamp"))
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
+        Dataset<Row> res = splitted.select("*").where("temperature > 35");
 
-
-        StreamingQuery query = splitted.writeStream().foreach(new JDBCSink())
+        StreamingQuery query = res.writeStream().foreach(new JDBCSink())
                 .start();
+
         try {
             query.awaitTermination();
         } catch (StreamingQueryException e) {
