@@ -11,10 +11,8 @@
       <change beforePath="$PROJECT_DIR$/out/artifacts/sparkTestApp_jar/sparkTestApp.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/sparkTestApp_jar/sparkTestApp.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JDBCSink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JDBCSink.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SavetoDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SavetoDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/JDBCSink.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JDBCSink.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/SavetoDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SavetoDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -44,7 +42,7 @@
       <file leaf-file-name="StructuredStream.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/StructuredStream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
+            <state relative-caret-position="840">
               <caret line="64" column="67" selection-start-line="64" selection-start-column="62" selection-end-line="64" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -53,14 +51,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SavetoDB.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SavetoDB.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/SavetoDB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="282">
+              <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParquetTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ParquetTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3">
+              <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -68,8 +75,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+            <state relative-caret-position="285">
+              <caret line="19" column="61" lean-forward="true" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JDBCSink.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JDBCSink.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/JDBCSink.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="43" column="96" selection-start-line="43" selection-start-column="96" selection-end-line="43" selection-end-column="96" />
+            <state relative-caret-position="312">
+              <caret line="48" column="34" lean-forward="true" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getConnection#0;class#JDBCSink#0" />
@@ -135,8 +142,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ParquetRead.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Server.java" />
-        <option value="$PROJECT_DIR$/src/main/java/SavetoDB.java" />
         <option value="$PROJECT_DIR$/src/main/java/JDBCSink.java" />
+        <option value="$PROJECT_DIR$/src/main/java/SavetoDB.java" />
       </list>
     </option>
   </component>
@@ -150,9 +157,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="142" />
-    <option name="y" value="27" />
-    <option name="width" value="1126" />
+    <option name="x" value="134" />
+    <option name="y" value="161" />
+    <option name="width" value="1116" />
     <option name="height" value="662" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -161,7 +168,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,6 +216,7 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -383,15 +390,16 @@
       <workItem from="1535347730887" duration="24881000" />
       <workItem from="1535439795023" duration="18359000" />
       <workItem from="1535521117504" duration="14715000" />
-      <workItem from="1535782769321" duration="10097000" />
+      <workItem from="1535782769321" duration="18903000" />
+      <workItem from="1535868646092" duration="13952000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="384484000" />
+    <option name="totallyTimeSpent" value="407242000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="51" y="25" width="1315" height="743" extended-state="6" />
+    <frame x="49" y="25" width="1317" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -409,7 +417,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15741445" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1564161" />
       <window_info anchor="right" id="Bean Validation" order="8" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -438,13 +446,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/local/spark/jars/spark-sql_2.11-2.3.1.jar!/org/apache/spark/sql/Dataset.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="41280">
@@ -681,13 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ParquetTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/java/jdk1.8.0_181/src.zip!/java/sql/Timestamp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2490">
@@ -716,13 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ConnectionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -737,20 +724,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/StructuredStream.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ConnectionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="64" column="67" selection-start-line="64" selection-start-column="62" selection-end-line="64" selection-end-column="67" />
+        <state relative-caret-position="267">
+          <caret line="84" column="66" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="84" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#randomStringGenerator#0;class#ConnectionHandler#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/SavetoDB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/StructuredStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="840">
+          <caret line="64" column="67" selection-start-line="64" selection-start-column="62" selection-end-line="64" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -759,21 +747,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+        <state relative-caret-position="285">
+          <caret line="19" column="61" lean-forward="true" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="jar:///usr/java/jdk1.8.0_181/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="747" selection-start-line="747" selection-end-line="747" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ParquetTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/JDBCSink.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="43" column="96" selection-start-line="43" selection-start-column="96" selection-end-line="43" selection-end-column="96" />
+        <state relative-caret-position="312">
+          <caret line="48" column="34" lean-forward="true" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getConnection#0;class#JDBCSink#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/SavetoDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

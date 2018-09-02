@@ -25,12 +25,17 @@ public class SavetoDB  {
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
         Dataset<Row> res = splitted.select("*").where("temperature > 35");
-
-        StreamingQuery query = res.writeStream().foreach(new JDBCSink())
+        StreamingQuery parquetQuery =  res.writeStream()
+                .format("parquet")
+                .option("checkpointLocation","/home/nima/Desktop/tempDir/parquetPartition")
+                .option("path","/home/nima/Desktop/tempDir/parquetPartition")
+                .partitionBy("city")
                 .start();
-
+        StreamingQuery sqlQuery = res.writeStream().foreach(new JDBCSink())
+                .start();
         try {
-            query.awaitTermination();
+            sqlQuery.awaitTermination();
+            parquetQuery.awaitTermination();
         } catch (StreamingQueryException e) {
             e.printStackTrace();
         }
