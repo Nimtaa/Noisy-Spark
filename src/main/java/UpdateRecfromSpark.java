@@ -25,18 +25,16 @@ public class UpdateRecfromSpark {
         JavaDStream<String> records = dStream.flatMap(x-> Arrays.asList(x.split("\n")).iterator());
 
         JavaPairDStream<String,Integer> ctpair =  records
-                .mapToPair(s->new Tuple2<>(s,Integer.parseInt(s.split(",")[2])));
+                .mapToPair(s->new Tuple2<>(s.split(",")[1],Integer.parseInt(s.split(",")[2])));
+        //ctpair.print();
 
-        //TODO change to lambda expression
-        Function2<List<Integer>, Optional<Integer>, Optional<Integer>> updateFunction =
-                new Function2<List<Integer>, Optional<Integer>, Optional<Integer>>() {
-                    public Optional<Integer> call(List<Integer> values, Optional<Integer> state) {
-                        Integer newSum = state.orElse(0);
-                        return Optional.of(newSum);
-                    }
-                };
+        Function2<List<Integer>, Optional<Integer>, Optional<Integer>> updateFunction = (value,state) -> {
+            Integer newsum = value.get(value.size()-1);
+            return Optional.of(newsum);
+        };
+
          JavaPairDStream<String,Integer> ctpairupdated = ctpair.updateStateByKey(updateFunction);
-         ctpairupdated.print();
+         ctpairupdated.print(51);
 
          jssc.start();
         try {
@@ -44,7 +42,5 @@ public class UpdateRecfromSpark {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 }
