@@ -1,9 +1,7 @@
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.Optional;
 import org.apache.spark.api.java.function.Function2;
-import org.apache.spark.sql.SparkSession;
 import org.apache.spark.streaming.Duration;
-import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
@@ -35,6 +33,9 @@ public class UpdateRecfromSpark {
 
          JavaPairDStream<String,Integer> ctpairupdated = ctpair.updateStateByKey(updateFunction);
          ctpairupdated.print(51);
+         //TODO write ctpairupdated to sql table
+         ctpairupdated.foreachRDD(rdd->rdd.saveAsTextFile("/home/nima/Desktop/tempDir/updaterecfromspark"));
+
 
          jssc.start();
         try {
