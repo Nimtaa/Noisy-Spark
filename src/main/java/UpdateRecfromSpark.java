@@ -7,13 +7,9 @@ import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import scala.Tuple2;
-
 import java.util.Arrays;
 import java.util.List;
-
-
 public class UpdateRecfromSpark {
-
     public static void main(String[] args) {
         JavaSparkContext js = new JavaSparkContext();
         js.setLogLevel("ERROR");
@@ -25,17 +21,14 @@ public class UpdateRecfromSpark {
         JavaPairDStream<String,Integer> ctpair =  records
                 .mapToPair(s->new Tuple2<>(s.split(",")[1],Integer.parseInt(s.split(",")[2])));
         //ctpair.print();
-
         Function2<List<Integer>, Optional<Integer>, Optional<Integer>> updateFunction = (value,state) -> {
             Integer newsum = value.get(value.size()-1);
             return Optional.of(newsum);
         };
-
          JavaPairDStream<String,Integer> ctpairupdated = ctpair.updateStateByKey(updateFunction);
          ctpairupdated.print(51);
          //TODO write ctpairupdated to sql table
          ctpairupdated.foreachRDD(rdd->rdd.saveAsTextFile("/home/nima/Desktop/tempDir/updaterecfromspark"));
-
 
          jssc.start();
         try {
