@@ -11,7 +11,6 @@ public class SavetoDB  {
         SparkSession spark = SparkSession.builder().appName("savetodb").getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
        // System.out.println(spark.conf().getAll());
-
         Dataset<Row> europeTemp = spark.readStream().format("socket")
                 .option("host","127.0.0.1")
                 .option("port",9998)
@@ -25,20 +24,18 @@ public class SavetoDB  {
                                 .cast("Timestamp"))
                 .withColumn("city",split(col("value"),",").getItem(1))
                 .withColumn("temperature",split(col("value"),",").getItem(2));
-        Dataset<Row> res = splitted.select("*").where("temperature > 35");
-
-        StreamingQuery parquetQuery =  res.writeStream()
-                .format("parquet")
-                .option("checkpointLocation","/home/nima/Desktop/tempDir/parquetPartition")
-                .option("path","/home/nima/Desktop/tempDir/parquetPartition")
-                .partitionBy("city")
-                .start();
-
-        StreamingQuery sqlQuery = res.writeStream().foreach(new JDBCSink())
+        //Dataset<Row> res = splitted.select("*").where("temperature > 35");
+//        StreamingQuery parquetQuery =  res.writeStream()
+//                .format("parquet")
+//                .option("checkpointLocation","/home/nima/Desktop/tempDir/parquetPartition")
+//                .option("path","/home/nima/Desktop/tempDir/parquetPartition")
+//                .partitionBy("city")
+//                .start();
+        StreamingQuery sqlQuery = splitted.writeStream().foreach(new JDBCSink())
                 .start();
         try {
             sqlQuery.awaitTermination();
-            parquetQuery.awaitTermination();
+//            parquetQuery.awaitTermination();
         } catch (StreamingQueryException e) {
             e.printStackTrace();
         }

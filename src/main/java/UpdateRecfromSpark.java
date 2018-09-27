@@ -29,7 +29,6 @@ public class UpdateRecfromSpark {
          ctpairupdated.print(51);
          //TODO write ctpairupdated to sql table
          ctpairupdated.foreachRDD(rdd->rdd.saveAsTextFile("/home/nima/Desktop/tempDir/updaterecfromspark"));
-
          jssc.start();
         try {
             jssc.awaitTermination();
