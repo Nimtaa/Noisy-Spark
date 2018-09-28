@@ -6,7 +6,11 @@ import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
+import org.bouncycastle.util.Times;
 import scala.Tuple2;
+
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 public class UpdateRecfromSpark {
@@ -21,12 +25,25 @@ public class UpdateRecfromSpark {
         JavaPairDStream<String,Integer> ctpair =  records
                 .mapToPair(s->new Tuple2<>(s.split(",")[1],Integer.parseInt(s.split(",")[2])));
         //ctpair.print();
+        JavaPairDStream<String,Timestamp> citytimepair = records
+                .mapToPair(s->new Tuple2<>(s.split(",")[1],Timestamp.valueOf(s.split(",")[0])));
+
         Function2<List<Integer>, Optional<Integer>, Optional<Integer>> updateFunction = (value,state) -> {
             Integer newsum = value.get(value.size()-1);
             return Optional.of(newsum);
         };
+        //List input
+        Function2<List<Timestamp>, Optional<Timestamp>, Optional<Timestamp>> updatetimeFunction = (value,state) -> {
+            Timestamp newsum = value.get(value.size()-1);
+            return Optional.of(newsum);
+        };
+
+
          JavaPairDStream<String,Integer> ctpairupdated = ctpair.updateStateByKey(updateFunction);
-         ctpairupdated.print(51);
+         JavaPairDStream<String,Timestamp> citytimepairupdated = citytimepair.updateStateByKey(updatetimeFunction);
+
+         citytimepairupdated.print(51);
+         //ctpairupdated.print(51);
          //TODO write ctpairupdated to sql table
          ctpairupdated.foreachRDD(rdd->rdd.saveAsTextFile("/home/nima/Desktop/tempDir/updaterecfromspark"));
          jssc.start();
