@@ -6,10 +6,7 @@ import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
-import org.bouncycastle.util.Times;
 import scala.Tuple2;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -37,15 +34,15 @@ public class UpdateRecfromSpark {
             Timestamp newsum = value.get(value.size()-1);
             return Optional.of(newsum);
         };
-
-
          JavaPairDStream<String,Integer> ctpairupdated = ctpair.updateStateByKey(updateFunction);
          JavaPairDStream<String,Timestamp> citytimepairupdated = citytimepair.updateStateByKey(updatetimeFunction);
-
          citytimepairupdated.print(51);
          //ctpairupdated.print(51);
          //TODO write ctpairupdated to sql table
          ctpairupdated.foreachRDD(rdd->rdd.saveAsTextFile("/home/nima/Desktop/tempDir/updaterecfromspark"));
+
+         
+
          jssc.start();
         try {
             jssc.awaitTermination();

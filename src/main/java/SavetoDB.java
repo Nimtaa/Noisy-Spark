@@ -31,7 +31,8 @@ public class SavetoDB  {
 //                .option("path","/home/nima/Desktop/tempDir/parquetPartition")
 //                .partitionBy("city")
 //                .start();
-        StreamingQuery sqlQuery = splitted.writeStream().foreach(new JDBCSink())
+//        StreamingQuery sqlQuery = splitted.writeStream().foreach(new JDBCSink())
+        StreamingQuery sqlQuery = splitted.writeStream().foreach(new JDBCSinkCascade())
                 .start();
         try {
             sqlQuery.awaitTermination();
